@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   FeedLogo,
@@ -9,15 +9,26 @@ import {
   FeedLogoutButton,
   FeedQuestionsContainer,
   FeedQuestionContainer,
-  FeedQuestionTitle,
-  FeedQuestionContent,
 } from "../styles/QuestionsFeedPageStyles";
+import Card from "../componenets/shared/CardContainer";
+import { SeparatorLine } from "../componenets/shared/SharedStyles";
 import logo from "../assests/images/logo.png";
 import { fetchQuestions } from "../redux/actions/questionActions";
+import AskQuestionModal from "../modals/AskQuestionModal";
 
 const QuestionFeedPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const questions = useSelector((state) => state.question.questions);
+  const loading = useSelector((state) => state.question.loading);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     dispatch(fetchQuestions());
@@ -30,23 +41,28 @@ const QuestionFeedPage = () => {
         <FeedLogo src={logo} alt="Logo" />
         <FeedSearchContainer>
           <FeedSearchInput type="text" placeholder="Search..." />
-          <FeedAskQuestionButton>Ask New Question</FeedAskQuestionButton>
+          <FeedAskQuestionButton onClick={openModal}>
+            Ask New Question
+          </FeedAskQuestionButton>
         </FeedSearchContainer>
         <FeedLogoutButton>Logout</FeedLogoutButton>
       </FeedHeaderContainer>
 
+      <SeparatorLine></SeparatorLine>
+
       {/* Questions Container */}
       <FeedQuestionsContainer>
-        {questions.map((question) => (
-          <FeedQuestionContainer key={question.id}>
-            <FeedQuestionTitle>{question.title}</FeedQuestionTitle>
-            <FeedQuestionContent>{question.content}</FeedQuestionContent>
-            <div>
-              Votes: {question.votes} | Answers: {question.answers}
-            </div>
-          </FeedQuestionContainer>
-        ))}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          questions.map((question) => (
+            <FeedQuestionContainer key={question.id}>
+              <Card data={question}></Card>
+            </FeedQuestionContainer>
+          ))
+        )}
       </FeedQuestionsContainer>
+      <AskQuestionModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 };

@@ -89,23 +89,9 @@ export const QuestionContainer = styled.div`
   margin-bottom: 15px;
 `;
 
-export const QuestionTitle = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-`;
-
-export const QuestionContent = styled.p`
-  font-size: 1rem;
-  margin-bottom: 10px;
-`;
-
-export const Tags = styled.div`
-  font-size: 0.875rem;
-  color: #555;
-  margin-bottom: 10px;
-`;
-
-export const HeaderActions = styled.div`
-  display: flex;
-  align-items: center;
+export const SeparatorLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 16px 0; /* Adjust the margin as needed */
 `;

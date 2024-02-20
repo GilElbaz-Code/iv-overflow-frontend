@@ -51,8 +51,6 @@ export const FeedQuestionsContainer = styled.div`
 
 export const FeedQuestionContainer = styled.div`
   background-color: #fff;
-  padding: 20px;
-  margin-bottom: 10px;
 `;
 
 export const FeedQuestionTitle = styled.h3`
