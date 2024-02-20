@@ -1,4 +1,3 @@
-// authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -7,7 +6,7 @@ const initialState = {
   error: null,
 };
 
-const authSlice = createSlice({
+const authReducer = createSlice({
   name: "auth",
   initialState,
   reducers: {
@@ -23,9 +22,9 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccess, loginFailure } = authSlice.actions;
+export const { loginSuccess, loginFailure } = authReducer.actions;
 export const selectToken = (state) => state.auth.token;
 export const selectLoading = (state) => state.auth.loading;
 export const selectError = (state) => state.auth.error;
 
-export default authSlice.reducer;
+export default authReducer.reducer;

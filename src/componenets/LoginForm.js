@@ -7,7 +7,7 @@ import {
   selectLoading,
   selectError,
   selectToken,
-} from "../redux/reducers/authSlice";
+} from "../redux/reducers/authReducer";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const LoginForm = () => {
     console.log("Token changed, navigating...");
     if (token) {
       // Redirect to the dummy page after a successful login
-      navigate("/dummy");
+      navigate("/feed");
     }
   }, [token, navigate]);
 
