@@ -4,7 +4,7 @@ import {
   StyledImg,
   BackgroundContainer,
 } from "../componenets/shared/SharedStyles";
-import logo from "../logo.png";
+import logo from "../assests/images/logo.png";
 
 const LoginPage = () => {
   return (

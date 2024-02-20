@@ -28,8 +28,9 @@ export const Label = styled.label`
   display: block;
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   color: #333;
+  vertical-align: top;
 `;
 
 export const Button = styled.button`
@@ -45,7 +46,7 @@ export const Form = styled.form`
   max-width: 300px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -60,4 +61,10 @@ export const Input = styled.input`
   border-radius: 3px;
   font-size: 1rem;
   box-sizing: border-box;
+`;
+
+export const ErrorSpan = styled.span`
+  color: red;
+  font-size: 0.875rem; /* Adjust the font size as needed */
+  margin-top: 4px; /* Add margin for spacing */
 `;

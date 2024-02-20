@@ -1,12 +1,40 @@
-import React, { useState } from "react";
-import { Form, Label, Input, Button } from "../componenets/shared/SharedStyles";
-import { loginUserApi } from "../api";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Form, Label, Input, Button, ErrorSpan } from "./shared/SharedStyles";
+import { loginUser } from "../redux/actions/authActions";
+import {
+  selectLoading,
+  selectError,
+  selectToken,
+} from "../redux/reducers/authSlice";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+  const token = useSelector(selectToken);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  useEffect(() => {
+    console.log("Token changed, navigating...");
+    if (token) {
+      // Redirect to the dummy page after a successful login
+      navigate("/dummy");
+    }
+  }, [token, navigate]);
+
+  const validateFields = () => {
+    const isEmailValid = validateEmail(email);
+    const isPasswordValid = validatePassword(password);
+
+    return isEmailValid && isPasswordValid;
+  };
 
   const validateEmail = (value) => {
     if (!value.includes("@")) {
@@ -31,43 +59,43 @@ const LoginForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    const isEmailValid = validateEmail(email);
-    const isPasswordValid = validatePassword(password);
-
-    if (isEmailValid && isPasswordValid) {
-      try {
-        const credentials = { email, password };
-        const loginData = await loginUserApi(credentials);
-        console.log("Login successful:", loginData);
-        // You can handle the successful login, e.g., redirect or update state
-      } catch (error) {
-        console.error("Login failed:", error);
-        // Handle the login failure, e.g., show an error message
-      }
+    if (!validateFields()) {
+      return;
     }
+
+    // Dispatch loginUser action with credentials
+    await dispatch(loginUser({ email, password }));
+
+    // Additional logic if needed
   };
 
   return (
     <Form onSubmit={handleFormSubmit}>
       <Label>
-        Email:
+        Email
         <Input
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          disabled={loading}
         />
-        {emailError && <span style={{ color: "red" }}>{emailError}</span>}
+        {emailError && <ErrorSpan>{emailError}</ErrorSpan>}
       </Label>
       <Label>
-        Password:
+        Password
         <Input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          disabled={loading}
         />
-        {passwordError && <span style={{ color: "red" }}>{passwordError}</span>}
+        {passwordError && <ErrorSpan>{passwordError}</ErrorSpan>}
       </Label>
-      <Button type="submit">Login</Button>
+      <Button type="submit" disabled={loading}>
+        {loading ? "Logging in..." : "Login"}
+      </Button>
+      {error && <p style={{ color: "red" }}>{error.data.error}</p>}
+      {/* No need to check token here, it will be logged via useEffect */}
     </Form>
   );
 };
