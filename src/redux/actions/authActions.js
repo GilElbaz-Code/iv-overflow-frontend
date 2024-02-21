@@ -20,6 +20,7 @@ export const loginUser = createAsyncThunk(
   async (credentials, { rejectWithValue, dispatch }) => {
     try {
       const response = await loginUserApi(credentials);
+      console.log(response);
       dispatch(loginSuccess(response.data.token)); // Dispatch loginSuccess with the token
       return response.data.token;
     } catch (error) {

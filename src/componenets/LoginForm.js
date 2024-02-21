@@ -22,9 +22,7 @@ const LoginForm = () => {
   const [passwordError, setPasswordError] = useState("");
 
   useEffect(() => {
-    console.log("Token changed, navigating...");
     if (token) {
-      // Redirect to the dummy page after a successful login
       navigate("/feed");
     }
   }, [token, navigate]);

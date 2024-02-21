@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { askQuestion } from "../redux/actions/questionActions";
+import { useDispatch } from "react-redux";
 
 // Styled components for the modal
 const ModalOverlay = styled.div`
@@ -60,40 +62,30 @@ const SubmitButton = styled.button`
 `;
 
 const AskQuestionModal = ({ isOpen, onClose }) => {
-  const [question, setQuestion] = useState("");
+  const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
-  const [tagList, setTagList] = useState([]);
+  const dispatch = useDispatch();
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
   const handleInputChange = (e) => {
-    setQuestion(e.target.value);
+    setContent(e.target.value);
   };
 
   const handleTagsChange = (e) => {
     setTags(e.target.value);
   };
 
-  const handleTagsKeyPress = (e) => {
-    if (e.key === "Enter" && tags.trim() !== "") {
-      setTagList([...tagList, tags.trim()]);
-      setTags("");
-    }
-  };
+  const handleSubmit = async () => {
+    const categories = tags
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag !== "");
 
-  const removeTag = (index) => {
-    const updatedTags = [...tagList];
-    updatedTags.splice(index, 1);
-    setTagList(updatedTags);
-  };
-
-  const handleSubmit = () => {
-    // Implement your logic to submit the question
-    // You can dispatch an action, make an API call, etc.
-    console.log("Submitted Question:", title, question, "Tags:", tagList);
+    await dispatch(askQuestion({ content, title, categories }));
 
     // Close the modal
     onClose();
@@ -112,26 +104,17 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
         />
         <TextArea
           placeholder="Type your question here..."
-          value={question}
+          value={content}
           onChange={handleInputChange}
           rows={5}
           cols={40}
         />
         <TagsInput
           type="text"
-          placeholder="Add tags (press Enter to add)"
+          placeholder="Add tags separated by commas"
           value={tags}
           onChange={handleTagsChange}
-          onKeyPress={handleTagsKeyPress}
         />
-        <div>
-          {tagList.map((tag, index) => (
-            <span key={index} onClick={() => removeTag(index)}>
-              {tag}
-              <span>&times;</span>
-            </span>
-          ))}
-        </div>
         <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
       </ModalContainer>
     </ModalOverlay>
