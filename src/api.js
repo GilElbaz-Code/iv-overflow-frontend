@@ -1,5 +1,3 @@
-// api/index.js
-
 import axios from "axios";
 
 const API_URL = "http://127.0.0.1:5000";
@@ -26,13 +24,13 @@ export const fetchQuestionsApi = async (token) => {
   }
 };
 
-export const askQuestionApi = async (questionData, config) => {
+export const askQuestionApi = async (questionData, token) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/questions`,
-      questionData,
-      config
-    );
+    const response = await axios.post(`${API_URL}/questions`, questionData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;

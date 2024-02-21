@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchQuestionsApi, askQuestionApi } from "../../api";
 import { selectToken } from "../reducers/authReducer"; // adjust the path based on your actual structure
+import { decodeToken } from "react-jwt";
 
 export const fetchQuestionsSuccess = (questions) => ({
   type: "questions/fetchQuestionsSuccess",
@@ -18,7 +19,6 @@ export const fetchQuestions = createAsyncThunk(
     try {
       const token = selectToken(getState()); // access token from the Redux store
       const response = await fetchQuestionsApi(token); // pass the token to the API function
-      console.log(response);
       dispatch(fetchQuestionsSuccess(response.data.questions));
       return response.data.questions;
     } catch (error) {
@@ -32,12 +32,18 @@ export const askQuestion = createAsyncThunk(
   async (questionData, { rejectWithValue, dispatch, getState }) => {
     try {
       const token = selectToken(getState()); // access token from the Redux store
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const decodedToken = decodeToken(token);
+      const userId = decodedToken ? decodedToken.sub : null;
+
+      // Include user ID in the request payload
+      const requestData = {
+        ...questionData,
+        userId: userId,
       };
-      const response = await askQuestionApi(questionData, config); // pass the token to the API function
+
+      console.log(requestData);
+
+      const response = await askQuestionApi(requestData, token); // pass the token and modified payload to the API function
       dispatch(askQuestionSuccess(response.data.question));
       return response.data.question;
     } catch (error) {
