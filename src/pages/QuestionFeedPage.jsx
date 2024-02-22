@@ -39,7 +39,7 @@ const QuestionFeedPage = () => {
   useEffect(() => {
     const fetchQuestionsData = async () => {
       try {
-        const response = await fetchQuestionsApi();
+        const response = await fetchQuestionsApi(localStorage.getItem('token'));
         console.log(response);
         setQuestions(response.questions);
         setLoading(false);

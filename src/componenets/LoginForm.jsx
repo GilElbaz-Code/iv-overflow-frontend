@@ -64,11 +64,11 @@ const LoginForm = () => {
 
     try {
       // Dispatch loginUser action with credentials
-      await dispatch(loginUser({ email, password }));
-
-      console.log(token);
+      let _token = await dispatch(loginUser({ email, password }));
+      
+      localStorage.setItem('token',_token.payload);
       // Now that the user is logged in, dispatch fetchUserInfo to store additional user info
-      await dispatch(fetchUserInfo(token));
+      await dispatch(fetchUserInfo(localStorage.getItem('token')));
 
       // Additional logic if needed
     } catch (error) {
