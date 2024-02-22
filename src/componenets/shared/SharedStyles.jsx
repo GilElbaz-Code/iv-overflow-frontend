@@ -41,25 +41,27 @@ export const Button = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin: 10px;
 `;
 
 export const Form = styled.form`
   max-width: 300px;
   margin: 0 auto;
   padding: 20px;
-  border: none;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: 10px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export const Input = styled.input`
   width: 100%;
   padding: 10px;
-  margin-bottom: 20px;
   border: 1px solid #ccc;
-  border-radius: 3px;
   font-size: 1rem;
   box-sizing: border-box;
 `;

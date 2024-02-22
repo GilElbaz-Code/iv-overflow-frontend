@@ -24,7 +24,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/feed");
+      navigate("/questions");
     }
   }, [token, navigate]);
 

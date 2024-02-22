@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "../redux/reducers/userReducer";
 import { ModalOverlay, CloseButton, ModalContainer, TitleInput, TextArea, TagsInput, SubmitButton } from "./AskQuestionModalStyle";
-import { askQuestionApi } from "../api"; // Import the askQuestionApi function from your api.js file
+import { askQuestionApi } from "../api"; 
 import { selectToken } from "../redux/reducers/authReducer";
 
 const AskQuestionModal = ({ isOpen, onClose }) => {
@@ -26,12 +26,13 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = async () => {
     try {
+      console.log(userInfo);
+      console.log(token);
       const categories = tags
         .split(",")
         .map((tag) => tag.trim())
         .filter((tag) => tag !== "");
 
-      // Make the API call using the askQuestionApi function
       const response = await askQuestionApi(
         {
           content,
