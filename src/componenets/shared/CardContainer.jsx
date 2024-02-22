@@ -10,15 +10,20 @@ import {
   TagContainer,
   Tag,
 } from "../../styles/CardContainerStyles";
+import { Link } from "react-router-dom";
 
 const Card = ({ data }) => {
   const questionDate = new Date(data.date);
   const now = new Date();
   const timeElapsed = calculateTimeElapsed(questionDate, now);
+  const questionId = data.question_id
 
   return (
     <CardContainer>
-      <QuestionTitle>{data.title}</QuestionTitle>
+      {/* Use Link component for QuestionTitle */}
+      <Link to={`/questions/${questionId}`}>
+        <QuestionTitle>{data.title}</QuestionTitle>
+      </Link>
       <QuestionBody>{data.content}</QuestionBody>
       <UserInfo>
         <UserName>

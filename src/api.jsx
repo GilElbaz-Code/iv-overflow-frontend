@@ -57,22 +57,27 @@ export const fetchQuestionsApi = async (token) => {
   }
 };
 
-export const askQuestionApi = async (questionData, token) => {
+export const fetchQuestionApi = async (questionId, token) => {
   try {
-    const response = await axios.post(`${API_URL}/questions`, questionData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    console.log(questionId);
+    const response = await axios.get(
+      `${API_URL}/questions/?question_id=${questionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
     return response.data;
   } catch (error) {
     handleApiError(error);
   }
 };
 
-export const fetchQuestionApi = async (questionId, token) => {
+export const askQuestionApi = async (questionData, token) => {
   try {
-    const response = await axios.get(`${API_URL}/questions/${questionId}`, {
+    const response = await axios.post(`${API_URL}/questions`, questionData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

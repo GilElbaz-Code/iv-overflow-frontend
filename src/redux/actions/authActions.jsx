@@ -35,8 +35,8 @@ const loginUser = createAsyncThunk(
 
 // Async action to perform logout
 const logoutUser = () => async (dispatch) => {
-  // Clear user information logic
   dispatch(logout());
+  // Redirect to the home page or login page after logout
   window.location.href = "/";
 };
 

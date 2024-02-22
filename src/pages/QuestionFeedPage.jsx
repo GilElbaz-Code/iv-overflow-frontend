@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react';
 import {
   FeedLogo,
   FeedHeaderContainer,
@@ -9,18 +8,20 @@ import {
   FeedLogoutButton,
   FeedQuestionsContainer,
   FeedQuestionContainer,
-} from "../styles/QuestionsFeedPageStyles";
-import Card from "../componenets/shared/CardContainer";
-import { SeparatorLine } from "../componenets/shared/SharedStyles";
-import logo from "../assests/images/logo.png";
-import { fetchQuestions } from "../redux/actions/questionActions";
-import AskQuestionModal from "../modals/AskQuestionModal";
+} from '../styles/QuestionsFeedPageStyles';
+import Card from '../componenets/shared/CardContainer'
+import { SeparatorLine } from '../componenets/shared/SharedStyles';  
+import AskQuestionModal from '../modals/AskQuestionModal';
+import { fetchQuestionsApi } from '../api';
+import logo from '../assests/images/logo.png'
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/reducers/authReducer';
 
 const QuestionFeedPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
-  const questions = useSelector((state) => state.question.questions);
-  const loading = useSelector((state) => state.question.loading);
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);  // Add loading state
+  const dispatch = useDispatch()
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -30,10 +31,25 @@ const QuestionFeedPage = () => {
     setIsModalOpen(true);
   };
 
-  useEffect(() => {
-    dispatch(fetchQuestions());
-  }, [dispatch]);
+  const handleLogout = () =>{
+    dispatch(logout());
+    window.location.href = "/";
+  }
 
+  useEffect(() => {
+    const fetchQuestionsData = async () => {
+      try {
+        const response = await fetchQuestionsApi();
+        console.log(response);
+        setQuestions(response.questions);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+        setLoading(false);
+      }
+    };
+    fetchQuestionsData();
+  }, []);
   return (
     <div>
       {/* Header Container */}
@@ -45,7 +61,7 @@ const QuestionFeedPage = () => {
             Ask New Question
           </FeedAskQuestionButton>
         </FeedSearchContainer>
-        <FeedLogoutButton>Logout</FeedLogoutButton>
+        <FeedLogoutButton onClick={handleLogout}>Logout</FeedLogoutButton>
       </FeedHeaderContainer>
 
       <SeparatorLine></SeparatorLine>

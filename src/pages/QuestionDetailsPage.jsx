@@ -1,38 +1,27 @@
-// pages/QuestionDetailPage.js
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchQuestions } from "../redux/actions/questionActions";
-import { QuestionContainer, QuestionTitle, QuestionContent, UserInfo, UserName, TimeElapsed, TagContainer, Tag } from "../styles/QuestionStyles";
+// QuestionDetailsPage.js
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const QuestionDetailsPage = () => {
-  const { questionTitle } = useParams();
-  const dispatch = useDispatch();
-  const question = useSelector((state) => state.question.selectedQuestion);
+const QuestionDetailsPage = ({ questions }) => {
+  const { questionId } = useParams();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(fetchQuestions(questionTitle));
-  }, [dispatch, questionTitle]);
+  // Find the selected question based on the questionId
+  const selectedQuestion = questions.find((question) => question.id === questionId);
 
-  if (!question) {
-    // Handle loading or not found state
-    return <p>Loading...</p>;
+  // If the selected question is not found, navigate back to the questions feed page
+  if (!selectedQuestion) {
+    navigate('/questions');
+    return null; // or display an error message
   }
 
   return (
-    <QuestionContainer>
-      <QuestionTitle>{question.title}</QuestionTitle>
-      <QuestionContent>{question.content}</QuestionContent>
-      <UserInfo>
-        <UserName>{question.created_by}</UserName>
-        <TimeElapsed>{/* Calculate time elapsed */}</TimeElapsed>
-        <TagContainer>
-          {question.categories.map((category, index) => (
-            <Tag key={index}>{category}</Tag>
-          ))}
-        </TagContainer>
-      </UserInfo>
-    </QuestionContainer>
+    <div>
+      {/* Render the details of the selected question here */}
+      <h1>{selectedQuestion.title}</h1>
+      <p>{selectedQuestion.content}</p>
+      {/* Add more details as needed */}
+    </div>
   );
 };
 

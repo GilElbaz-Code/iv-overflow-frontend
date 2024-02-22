@@ -19,10 +19,15 @@ const authReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    logout: (state) => {
+      state.token = null;
+      state.loading = false;
+      state.error = null;
+    },
   },
 });
 
-export const { loginSuccess, loginFailure } = authReducer.actions;
+export const { loginSuccess, loginFailure, logout } = authReducer.actions;
 export const selectToken = (state) => state.auth.token;
 export const selectLoading = (state) => state.auth.loading;
 export const selectError = (state) => state.auth.error;

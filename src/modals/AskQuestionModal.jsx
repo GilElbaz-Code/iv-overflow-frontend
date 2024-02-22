@@ -1,74 +1,16 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { askQuestion } from "../redux/actions/questionActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectUserInfo } from "../redux/reducers/userReducer";
-
-// Styled components for the modal
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
-  justify-content: center;
-  align-items: center;
-`;
-
-const ModalContainer = styled.div`
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  position: relative;
-  display: flex;
-  flex-direction: column; /* Stack child elements vertically */
-  align-items: center; /* Center child elements horizontally */
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 18px;
-`;
-
-const TitleInput = styled.input`
-  width: 100%;
-  margin-bottom: 10px;
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  margin-bottom: 10px;
-`;
-
-const TagsInput = styled.input`
-  width: 100%;
-  margin-bottom: 10px;
-`;
-
-const SubmitButton = styled.button`
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-`;
+import { ModalOverlay, CloseButton, ModalContainer, TitleInput, TextArea, TagsInput, SubmitButton } from "./AskQuestionModalStyle";
+import { askQuestionApi } from "../api"; // Import the askQuestionApi function from your api.js file
+import { selectToken } from "../redux/reducers/authReducer";
 
 const AskQuestionModal = ({ isOpen, onClose }) => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
-  const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
-  console.log(userInfo);
+  const token = useSelector(selectToken)
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -83,15 +25,31 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
   };
 
   const handleSubmit = async () => {
-    const categories = tags
-      .split(",")
-      .map((tag) => tag.trim())
-      .filter((tag) => tag !== "");
+    try {
+      const categories = tags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag !== "");
 
-    await dispatch(askQuestion({ content, title, categories }));
+      // Make the API call using the askQuestionApi function
+      const response = await askQuestionApi(
+        {
+          content,
+          title,
+          categories,
+        },
+        token
+      );
 
-    // Close the modal
-    onClose();
+      // Handle the response as needed
+      console.log("API Response:", response);
+
+      // Close the modal
+      onClose();
+    } catch (error) {
+      // Handle errors
+      console.error("Error submitting question:", error);
+    }
   };
 
   return (
