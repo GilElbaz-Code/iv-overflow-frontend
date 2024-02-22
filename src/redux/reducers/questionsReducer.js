@@ -1,5 +1,6 @@
 const initialState = {
   questions: [],
+  question: null,
   status: "idle",
   error: null,
 };
@@ -7,6 +8,7 @@ const initialState = {
 const questionsReducer = (state = initialState, action) => {
   switch (action.type) {
     case "questions/fetchQuestions/pending":
+    case "questions/fetchQuestion/pending":
     case "questions/askQuestion/pending":
       return {
         ...state,
@@ -22,6 +24,14 @@ const questionsReducer = (state = initialState, action) => {
         error: null,
       };
 
+    case "questions/fetchQuestion/fulfilled":
+      return {
+        ...state,
+        status: "succeeded",
+        question: action.payload,
+        error: null,
+      };
+
     case "questions/askQuestion/fulfilled":
       return {
         ...state,
@@ -31,6 +41,7 @@ const questionsReducer = (state = initialState, action) => {
       };
 
     case "questions/fetchQuestions/rejected":
+    case "questions/fetchQuestion/rejected":
     case "questions/askQuestion/rejected":
       return {
         ...state,

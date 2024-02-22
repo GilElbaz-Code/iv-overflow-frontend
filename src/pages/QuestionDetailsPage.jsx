@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchQuestionDetail } from "../redux/actions/questionActions";
+import { fetchQuestions } from "../redux/actions/questionActions";
 import { QuestionContainer, QuestionTitle, QuestionContent, UserInfo, UserName, TimeElapsed, TagContainer, Tag } from "../styles/QuestionStyles";
 
 const QuestionDetailsPage = () => {
@@ -11,7 +11,7 @@ const QuestionDetailsPage = () => {
   const question = useSelector((state) => state.question.selectedQuestion);
 
   useEffect(() => {
-    dispatch(fetchQuestionDetail(questionTitle));
+    dispatch(fetchQuestions(questionTitle));
   }, [dispatch, questionTitle]);
 
   if (!question) {
