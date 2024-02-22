@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { askQuestion } from "../redux/actions/questionActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserInfo } from "../redux/reducers/userReducer";
 
 // Styled components for the modal
 const ModalOverlay = styled.div`
@@ -66,6 +67,8 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const dispatch = useDispatch();
+  const userInfo = useSelector(selectUserInfo);
+  console.log(userInfo);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);

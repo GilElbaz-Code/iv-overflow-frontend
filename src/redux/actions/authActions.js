@@ -2,29 +2,43 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginUserApi } from "../../api"; // Import your API function
 
+// Action for starting the login process
+const loginStart = () => ({
+  type: "auth/loginStart",
+});
+
 // Action for successful login
-export const loginSuccess = (token) => ({
+const loginSuccess = (token) => ({
   type: "auth/loginSuccess",
   payload: token,
 });
 
-// Action for login failure
-export const loginFailure = (error) => ({
-  type: "auth/loginFailure",
-  payload: error,
+// Action for logging out
+const logout = () => ({
+  type: "auth/logout",
 });
 
 // Async action to perform login API call
-export const loginUser = createAsyncThunk(
+const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials, { rejectWithValue, dispatch }) => {
     try {
+      dispatch(loginStart()); // Set loading state to true
       const response = await loginUserApi(credentials);
-      console.log(response);
-      dispatch(loginSuccess(response.data.token)); // Dispatch loginSuccess with the token
+      dispatch(loginSuccess(response.data.token));
       return response.data.token;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
+
+// Async action to perform logout
+const logoutUser = () => async (dispatch) => {
+  // Clear user information logic
+  dispatch(logout());
+  window.location.href = "/";
+};
+
+// Export necessary actions
+export { loginUser, logoutUser };

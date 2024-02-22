@@ -8,6 +8,7 @@ import {
   selectError,
   selectToken,
 } from "../redux/reducers/authReducer";
+import { fetchUserInfo } from "../redux/actions/userActions";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -61,10 +62,19 @@ const LoginForm = () => {
       return;
     }
 
-    // Dispatch loginUser action with credentials
-    await dispatch(loginUser({ email, password }));
+    try {
+      // Dispatch loginUser action with credentials
+      await dispatch(loginUser({ email, password }));
 
-    // Additional logic if needed
+      console.log(token);
+      // Now that the user is logged in, dispatch fetchUserInfo to store additional user info
+      await dispatch(fetchUserInfo(token));
+
+      // Additional logic if needed
+    } catch (error) {
+      // Handle errors, if any, from loginUser or fetchUserInfo
+      console.error("Error during login or fetching user info", error);
+    }
   };
 
   return (

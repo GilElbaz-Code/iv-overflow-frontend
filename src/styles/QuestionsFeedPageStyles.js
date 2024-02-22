@@ -1,5 +1,3 @@
-// QuestionsFeedPageStyles.js
-
 import styled from "styled-components";
 
 // Header Styles
