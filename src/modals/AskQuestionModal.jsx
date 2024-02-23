@@ -4,14 +4,13 @@ import {
   ModalOverlay,
   CloseButton,
   ModalContainer,
-  TitleInput,
   TextArea,
-  TagsInput,
-  SubmitButton,
+  Input,
 } from "./AskQuestionModalStyle";
 import { askQuestionApi } from "../api";
 import { selectToken } from "../redux/reducers/authReducer";
 import { selectUserInfo } from "../redux/reducers/userReducer";
+import { Button, Title } from "../componenets/shared/SharedStyles";
 
 const AskQuestionModal = ({ isOpen, onClose }) => {
   const [content, setContent] = useState("");
@@ -60,8 +59,8 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
     <ModalOverlay isOpen={isOpen} onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>&times;</CloseButton>
-        <h2>Ask a Question</h2>
-        <TitleInput
+        <Title>Ask a question</Title>
+        <Input
           type="text"
           placeholder="Title"
           value={title}
@@ -74,13 +73,13 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
           rows={5}
           cols={40}
         />
-        <TagsInput
+        <Input
           type="text"
           placeholder="Add tags separated by commas"
           value={tagList}
           onChange={handleTagsChange}
         />
-        <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+        <Button onClick={handleSubmit}>Submit</Button>
       </ModalContainer>
     </ModalOverlay>
   );

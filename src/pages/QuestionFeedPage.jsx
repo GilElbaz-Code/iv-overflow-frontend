@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import {
-  FeedLogo,
   FeedHeaderContainer,
   FeedSearchContainer,
   FeedSearchInput,
-  FeedAskQuestionButton,
   FeedLogoutButton,
   FeedQuestionsContainer,
   FeedQuestionContainer,
 } from "../styles/QuestionsFeedPageStyles";
 import Card from "../componenets/shared/CardContainer";
-import { SeparatorLine } from "../componenets/shared/SharedStyles";
+import {
+  Button,
+  Logo,
+  SeparatorLine,
+} from "../componenets/shared/SharedStyles";
 import AskQuestionModal from "../modals/AskQuestionModal";
 import { fetchQuestionsApi } from "../api";
 import logo from "../assests/images/logo.png";
@@ -56,12 +58,10 @@ const QuestionFeedPage = () => {
     <div>
       {/* Header Container */}
       <FeedHeaderContainer>
-        <FeedLogo src={logo} alt="Logo" />
+        <Logo src={logo} alt="Logo" />
         <FeedSearchContainer>
           <FeedSearchInput type="text" placeholder="Search..." />
-          <FeedAskQuestionButton onClick={openModal}>
-            Ask New Question
-          </FeedAskQuestionButton>
+          <Button onClick={openModal}>Ask New Question</Button>
         </FeedSearchContainer>
         <FeedLogoutButton onClick={handleLogout}>Logout</FeedLogoutButton>
       </FeedHeaderContainer>

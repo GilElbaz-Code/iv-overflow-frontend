@@ -14,13 +14,14 @@ export const ModalOverlay = styled.div`
 
 export const ModalContainer = styled.div`
   background: #fff;
-  padding: 20px;
+  padding: 40px; /* Increase padding to make the box bigger */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
   display: flex;
-  flex-direction: column; /* Stack child elements vertically */
-  align-items: center; /* Center child elements horizontally */
+  flex-direction: column;
+  align-items: center;
+  width: 400px; /* Explicit width */
 `;
 
 export const CloseButton = styled.button`
@@ -33,17 +34,14 @@ export const CloseButton = styled.button`
   font-size: 18px;
 `;
 
-export const TitleInput = styled.input`
+export const Input = styled.input`
+  font-family: "Roboto", sans-serif;
   width: 100%;
   margin-bottom: 10px;
 `;
 
 export const TextArea = styled.textarea`
-  width: 100%;
-  margin-bottom: 10px;
-`;
-
-export const TagsInput = styled.input`
+  font-family: "Roboto", sans-serif;
   width: 100%;
   margin-bottom: 10px;
 `;

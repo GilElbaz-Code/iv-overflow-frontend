@@ -1,15 +1,15 @@
 import LoginForm from "../componenets/LoginForm";
 import {
   Title,
-  StyledImg,
   BackgroundContainer,
+  Logo,
 } from "../componenets/shared/SharedStyles";
 import logo from "../assests/images/logo.png";
 
 const LoginPage = () => {
   return (
     <BackgroundContainer>
-      <StyledImg src={logo} alt="Logo" />
+      <Logo src={logo} alt="Logo" />
       <Title>Welcome to IV Overflow</Title>
       <LoginForm />
     </BackgroundContainer>

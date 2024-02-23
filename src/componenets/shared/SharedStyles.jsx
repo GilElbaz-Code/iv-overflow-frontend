@@ -1,4 +1,3 @@
-// shared/SharedStyles.js
 import styled from "styled-components";
 
 export const Title = styled.h1`
@@ -14,6 +13,10 @@ export const StyledImg = styled.img`
   width: 100%;
   max-width: 200px;
   margin: 0 auto;
+`;
+
+export const Logo = styled.img`
+  width: 150px;
 `;
 
 export const BackgroundContainer = styled.div`

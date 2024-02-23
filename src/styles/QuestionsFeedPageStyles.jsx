@@ -9,10 +9,6 @@ export const FeedHeaderContainer = styled.div`
   align-items: center;
 `;
 
-export const FeedLogo = styled.img`
-  width: 50px;
-`;
-
 export const FeedSearchContainer = styled.div`
   display: flex;
   align-items: center;
