@@ -15,7 +15,10 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
-  const token = useSelector(selectToken);
+  const token = useSelector((state) => {
+    console.log("state", state);
+    return state.auth.token;
+  });
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +26,9 @@ const LoginForm = () => {
   const [passwordError, setPasswordError] = useState("");
 
   useEffect(() => {
+    console.log("token", token);
     if (token) {
+      dispatch(fetchUserInfo(token));
       navigate("/questions");
     }
   }, [token, navigate]);
@@ -64,11 +69,9 @@ const LoginForm = () => {
 
     try {
       // Dispatch loginUser action with credentials
-      await dispatch(loginUser({ email, password }));
+      dispatch(loginUser({ email, password }));
 
       console.log(token);
-      // Now that the user is logged in, dispatch fetchUserInfo to store additional user info
-      await dispatch(fetchUserInfo(token));
 
       // Additional logic if needed
     } catch (error) {
