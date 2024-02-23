@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectUserInfo } from "../redux/reducers/userReducer";
-import { ModalOverlay, CloseButton, ModalContainer, TitleInput, TextArea, TagsInput, SubmitButton } from "./AskQuestionModalStyle";
-import { askQuestionApi } from "../api"; 
+import {
+  ModalOverlay,
+  CloseButton,
+  ModalContainer,
+  TitleInput,
+  TextArea,
+  TagsInput,
+  SubmitButton,
+} from "./AskQuestionModalStyle";
+import { askQuestionApi } from "../api";
 import { selectToken } from "../redux/reducers/authReducer";
+import { selectUserInfo } from "../redux/reducers/userReducer";
 
 const AskQuestionModal = ({ isOpen, onClose }) => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
-  const [tags, setTags] = useState("");
+  const [tagList, setTagList] = useState("");
+  const token = useSelector(selectToken);
   const userInfo = useSelector(selectUserInfo);
-  const token = useSelector(selectToken)
+  console.log(userInfo);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -21,31 +30,25 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
   };
 
   const handleTagsChange = (e) => {
-    setTags(e.target.value);
+    setTagList(e.target.value);
   };
 
   const handleSubmit = async () => {
     try {
-      console.log(userInfo);
-      console.log(token);
-      const categories = tags
+      const tags = tagList
         .split(",")
         .map((tag) => tag.trim())
         .filter((tag) => tag !== "");
 
-      const response = await askQuestionApi(
+      await askQuestionApi(
         {
           content,
           title,
-          categories,
+          tags,
         },
         token
       );
 
-      // Handle the response as needed
-      console.log("API Response:", response);
-
-      // Close the modal
       onClose();
     } catch (error) {
       // Handle errors
@@ -74,7 +77,7 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
         <TagsInput
           type="text"
           placeholder="Add tags separated by commas"
-          value={tags}
+          value={tagList}
           onChange={handleTagsChange}
         />
         <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>

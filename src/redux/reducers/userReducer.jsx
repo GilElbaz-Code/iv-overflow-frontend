@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserInfo } from "../actions/userActions";
 
 const initialState = {
   userInfo: null,
+  error: null,
 };
 
 const userReducer = createSlice({
@@ -13,13 +13,8 @@ const userReducer = createSlice({
       state.userInfo = action.payload;
     },
     getUserInfoFailure: (state, action) => {
-      // Handle failure, if needed
+      state.error = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(fetchUserInfo.fulfilled, (state, action) => {
-      state.userInfo = action.payload;
-    });
   },
 });
 

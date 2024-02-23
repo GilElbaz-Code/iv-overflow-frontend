@@ -15,10 +15,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
-  const token = useSelector((state) => {
-    console.log("state", state);
-    return state.auth.token;
-  });
+  const token = useSelector(selectToken);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,10 +25,10 @@ const LoginForm = () => {
   useEffect(() => {
     console.log("token", token);
     if (token) {
-      dispatch(fetchUserInfo(token));
+      dispatch(fetchUserInfo());
       navigate("/questions");
     }
-  }, [token, navigate]);
+  }, [token, navigate, dispatch]);
 
   const validateFields = () => {
     const isEmailValid = validateEmail(email);
@@ -68,14 +65,8 @@ const LoginForm = () => {
     }
 
     try {
-      // Dispatch loginUser action with credentials
       dispatch(loginUser({ email, password }));
-
-      console.log(token);
-
-      // Additional logic if needed
     } catch (error) {
-      // Handle errors, if any, from loginUser or fetchUserInfo
       console.error("Error during login or fetching user info", error);
     }
   };
@@ -106,7 +97,6 @@ const LoginForm = () => {
         {loading ? "Logging in..." : "Login"}
       </Button>
       {error && <p style={{ color: "red" }}>{error.data.error}</p>}
-      {/* No need to check token here, it will be logged via useEffect */}
     </Form>
   );
 };

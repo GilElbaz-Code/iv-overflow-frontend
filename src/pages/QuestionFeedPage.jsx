@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   FeedLogo,
   FeedHeaderContainer,
@@ -8,20 +8,23 @@ import {
   FeedLogoutButton,
   FeedQuestionsContainer,
   FeedQuestionContainer,
-} from '../styles/QuestionsFeedPageStyles';
-import Card from '../componenets/shared/CardContainer'
-import { SeparatorLine } from '../componenets/shared/SharedStyles';  
-import AskQuestionModal from '../modals/AskQuestionModal';
-import { fetchQuestionsApi } from '../api';
-import logo from '../assests/images/logo.png'
-import { useDispatch } from 'react-redux';
-import { logout } from '../redux/reducers/authReducer';
+} from "../styles/QuestionsFeedPageStyles";
+import Card from "../componenets/shared/CardContainer";
+import { SeparatorLine } from "../componenets/shared/SharedStyles";
+import AskQuestionModal from "../modals/AskQuestionModal";
+import { fetchQuestionsApi } from "../api";
+import logo from "../assests/images/logo.png";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectToken } from "../redux/reducers/authReducer";
+import { useNavigate } from "react-router-dom";
 
 const QuestionFeedPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(true);  // Add loading state
-  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -31,25 +34,24 @@ const QuestionFeedPage = () => {
     setIsModalOpen(true);
   };
 
-  const handleLogout = () =>{
+  const handleLogout = () => {
     dispatch(logout());
-    window.location.href = "/";
-  }
+    navigate("/");
+  };
 
   useEffect(() => {
     const fetchQuestionsData = async () => {
       try {
-        const response = await fetchQuestionsApi();
-        console.log(response);
+        const response = await fetchQuestionsApi(token);
         setQuestions(response.questions);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching questions:', error);
+        console.error("Error fetching questions:", error);
         setLoading(false);
       }
     };
     fetchQuestionsData();
-  }, []);
+  }, [token]);
   return (
     <div>
       {/* Header Container */}
