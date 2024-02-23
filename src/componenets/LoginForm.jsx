@@ -23,7 +23,6 @@ const LoginForm = () => {
   const [passwordError, setPasswordError] = useState("");
 
   useEffect(() => {
-    console.log("token", token);
     if (token) {
       dispatch(fetchUserInfo());
       navigate("/questions");

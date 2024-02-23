@@ -11,15 +11,12 @@ import {
 } from "./AskQuestionModalStyle";
 import { askQuestionApi } from "../api";
 import { selectToken } from "../redux/reducers/authReducer";
-import { selectUserInfo } from "../redux/reducers/userReducer";
 
 const AskQuestionModal = ({ isOpen, onClose }) => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [tagList, setTagList] = useState("");
   const token = useSelector(selectToken);
-  const userInfo = useSelector(selectUserInfo);
-  console.log(userInfo);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
