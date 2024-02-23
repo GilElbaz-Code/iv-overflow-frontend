@@ -24,7 +24,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchUserInfo());
+      dispatch(fetchUserInfo(token));
       navigate("/questions");
     }
   }, [token, navigate, dispatch]);

@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getUserInfo } from "../../api";
+import { setUserInfo } from "../reducers/userReducer";
 
-// Async action to perform user info API call
 export const fetchUserInfo = createAsyncThunk(
   "user/fetchUserInfo",
-  async (token, { rejectWithValue }) => {
+  async (token, { rejectWithValue, dispatch }) => {
     try {
       const response = await getUserInfo(token);
-      console.log(response);
-      return response.data;
+      dispatch(setUserInfo(response.data.fullName));
+      return response.data.fullName;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

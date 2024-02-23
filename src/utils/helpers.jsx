@@ -1,16 +1,37 @@
 export const calculateTimeElapsed = (startDate, endDate) => {
   const seconds = Math.floor((endDate - startDate) / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
 
-  if (days > 0) {
-    return `${days}d ago`;
-  } else if (hours > 0) {
-    return `${hours}h ago`;
-  } else if (minutes > 0) {
-    return `${minutes}m ago`;
-  } else {
-    return `${seconds}s ago`;
+  if (seconds < 0) {
+    return "Just now";
   }
+
+  let interval = Math.floor(seconds / 31536000);
+
+  if (interval >= 1) {
+    return `${interval} year${interval === 1 ? "" : "s"} ago`;
+  }
+
+  interval = Math.floor(seconds / 2592000);
+  if (interval >= 1) {
+    return `${interval} month${interval === 1 ? "" : "s"} ago`;
+  }
+
+  interval = Math.floor(seconds / 86400);
+  if (interval >= 1) {
+    return `${interval} day${interval === 1 ? "" : "s"} ago`;
+  }
+
+  interval = Math.floor(seconds / 3600);
+  if (interval >= 1) {
+    return `${interval} hour${interval === 1 ? "" : "s"} ago`;
+  }
+
+  interval = Math.floor(seconds / 60);
+  if (interval >= 1) {
+    return `${interval} minute${interval === 1 ? "" : "s"} ago`;
+  }
+
+  return `${Math.floor(seconds)} second${
+    Math.floor(seconds) === 1 ? "" : "s"
+  } ago`;
 };

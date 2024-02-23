@@ -50,7 +50,6 @@ export const fetchQuestionsApi = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
     return response.data;
   } catch (error) {
     handleApiError(error);
@@ -68,7 +67,6 @@ export const fetchQuestionApi = async (questionId, token) => {
         },
       }
     );
-    console.log(response);
     return response.data;
   } catch (error) {
     handleApiError(error);
