@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, selectToken } from "../redux/reducers/authReducer";
 import { useNavigate } from "react-router-dom";
 import { fetchQuestionsApi } from "../api";
-import QuestionsList from "../componenets/QuestionsList";
+import QuestionsList from "../components/QuestionsList";
 
 const QuestionFeedPage = () => {
   const [questions, setQuestions] = useState([]);

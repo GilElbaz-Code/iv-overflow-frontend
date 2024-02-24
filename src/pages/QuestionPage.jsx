@@ -6,7 +6,7 @@ import { selectToken } from "../redux/reducers/authReducer";
 import { selectUserInfo } from "../redux/reducers/userReducer";
 import { BlueButton, Label, Title } from "../styles/SharedStyles";
 import { TagContainer, Tag } from "../styles/CardContainerStyles";
-import AnswerCard from "../componenets/AnswerCard";
+import AnswerCard from "../components/AnswerCard";
 import { TextArea } from "../modals/AskQuestionModalStyle";
 
 const QuestionPage = () => {

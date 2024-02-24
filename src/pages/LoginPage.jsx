@@ -1,4 +1,4 @@
-import LoginForm from "../componenets/LoginForm";
+import LoginForm from "../components/LoginForm";
 import { Title, BackgroundContainer, Logo } from "../styles/SharedStyles";
 import logo from "../assests/images/logo.png";
 
