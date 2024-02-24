@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Form, Label, Input, Button, ErrorSpan } from "./shared/SharedStyles";
+import {
+  Form,
+  Label,
+  Input,
+  ErrorSpan,
+  BlueButton,
+} from "./shared/SharedStyles";
 import { loginUser } from "../redux/actions/authActions";
 import {
   selectLoading,
@@ -92,9 +98,9 @@ const LoginForm = () => {
         />
         {passwordError && <ErrorSpan>{passwordError}</ErrorSpan>}
       </Label>
-      <Button type="submit" disabled={loading}>
+      <BlueButton type="submit" disabled={loading}>
         {loading ? "Logging in..." : "Login"}
-      </Button>
+      </BlueButton>
       {error && <p style={{ color: "red" }}>{error.data.error}</p>}
     </Form>
   );

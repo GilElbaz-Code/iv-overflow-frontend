@@ -38,13 +38,24 @@ export const Label = styled.label`
 `;
 
 export const Button = styled.button`
-  background-color: #4caf50;
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   margin: 10px;
+`;
+
+export const GreenButton = styled(Button)`
+  background-color: #4caf50;
+`;
+
+export const RedButton = styled(Button)`
+  background-color: #f44336;
+`;
+
+export const BlueButton = styled(Button)`
+  background-color: #1d8ff2;
 `;
 
 export const Form = styled.form`

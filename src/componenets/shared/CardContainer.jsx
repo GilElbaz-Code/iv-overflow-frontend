@@ -17,6 +17,7 @@ const Card = ({ data }) => {
   const now = new Date();
   const timeElapsed = calculateTimeElapsed(questionDate, now);
   const questionId = data.question_id;
+  const fullName = data.full_name;
   console.log(data);
 
   return (
@@ -27,7 +28,7 @@ const Card = ({ data }) => {
       <QuestionBody>{data.content}</QuestionBody>
       <UserInfo>
         <UserName>
-          asked <TimeElapsed>{timeElapsed}</TimeElapsed> by {data.full_name}
+          asked <TimeElapsed>{timeElapsed}</TimeElapsed> by {fullName}
         </UserName>
         <TagContainer>
           {data.tags.map((tag) => (

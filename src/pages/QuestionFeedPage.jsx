@@ -3,14 +3,14 @@ import {
   FeedHeaderContainer,
   FeedSearchContainer,
   FeedSearchInput,
-  FeedLogoutButton,
   FeedQuestionsContainer,
   FeedQuestionContainer,
 } from "../styles/QuestionsFeedPageStyles";
 import Card from "../componenets/shared/CardContainer";
 import {
-  Button,
+  GreenButton,
   Logo,
+  RedButton,
   SeparatorLine,
 } from "../componenets/shared/SharedStyles";
 import AskQuestionModal from "../modals/AskQuestionModal";
@@ -61,14 +61,13 @@ const QuestionFeedPage = () => {
         <Logo src={logo} alt="Logo" />
         <FeedSearchContainer>
           <FeedSearchInput type="text" placeholder="Search..." />
-          <Button onClick={openModal}>Ask New Question</Button>
+          <GreenButton onClick={openModal}>Ask New Question</GreenButton>
         </FeedSearchContainer>
-        <FeedLogoutButton onClick={handleLogout}>Logout</FeedLogoutButton>
+        <RedButton onClick={handleLogout}>Logout</RedButton>
       </FeedHeaderContainer>
 
       <SeparatorLine></SeparatorLine>
 
-      {/* Questions Container */}
       <FeedQuestionsContainer>
         {loading ? (
           <p>Loading...</p>

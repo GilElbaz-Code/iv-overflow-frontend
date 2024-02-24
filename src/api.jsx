@@ -58,7 +58,6 @@ export const fetchQuestionsApi = async (token) => {
 
 export const fetchQuestionApi = async (questionId, token) => {
   try {
-    console.log(questionId);
     const response = await axios.get(
       `${API_URL}/questions/?question_id=${questionId}`,
       {
