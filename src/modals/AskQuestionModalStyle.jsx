@@ -24,16 +24,6 @@ export const ModalContainer = styled.div`
   width: 400px; /* Explicit width */
 `;
 
-export const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 18px;
-`;
-
 export const Input = styled.input`
   font-family: "Roboto", sans-serif;
   width: 100%;

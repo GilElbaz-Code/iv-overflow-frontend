@@ -43,6 +43,22 @@ export const getUserInfo = async (token) => {
   }
 };
 
+export const fetchSingleQuestionApi = async (token, questionId) => {
+  try {
+    const response = await axios.get(`${API_URL}/questions`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        questionId: `${questionId}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
 export const fetchQuestionsApi = async (token) => {
   try {
     const response = await axios.get(`${API_URL}/questions`, {
@@ -56,22 +72,6 @@ export const fetchQuestionsApi = async (token) => {
   }
 };
 
-export const fetchQuestionApi = async (questionId, token) => {
-  try {
-    const response = await axios.get(
-      `${API_URL}/questions/?question_id=${questionId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    handleApiError(error);
-  }
-};
-
 export const askQuestionApi = async (questionData, token) => {
   try {
     const response = await axios.post(`${API_URL}/questions`, questionData, {
@@ -79,6 +79,23 @@ export const askQuestionApi = async (questionData, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const fetchAnswersApi = async (token, questionId) => {
+  try {
+    const response = await axios.get(`${API_URL}/answers`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        questionId: `${questionId}`,
+      },
+    });
+    console.log(response);
     return response.data;
   } catch (error) {
     handleApiError(error);

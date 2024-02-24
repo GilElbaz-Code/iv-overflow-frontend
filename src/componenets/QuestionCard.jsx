@@ -1,5 +1,5 @@
 import React from "react";
-import { calculateTimeElapsed } from "../../utils/helpers";
+import { calculateTimeElapsed } from "../utils/helpers";
 import {
   CardContainer,
   QuestionTitle,
@@ -9,16 +9,16 @@ import {
   UserInfo,
   TagContainer,
   Tag,
-} from "../../styles/CardContainerStyles";
+} from "../styles/CardContainerStyles";
 import { Link } from "react-router-dom";
 
-const Card = ({ data }) => {
+const QuestionCard = ({ data }) => {
+  console.log(data);
   const questionDate = new Date(data.date);
   const now = new Date();
   const timeElapsed = calculateTimeElapsed(questionDate, now);
   const questionId = data.question_id;
   const fullName = data.full_name;
-  console.log(data);
 
   return (
     <CardContainer>
@@ -40,4 +40,4 @@ const Card = ({ data }) => {
   );
 };
 
-export default Card;
+export default QuestionCard;

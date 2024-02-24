@@ -1,9 +1,5 @@
 import LoginForm from "../componenets/LoginForm";
-import {
-  Title,
-  BackgroundContainer,
-  Logo,
-} from "../componenets/shared/SharedStyles";
+import { Title, BackgroundContainer, Logo } from "../styles/SharedStyles";
 import logo from "../assests/images/logo.png";
 
 const LoginPage = () => {

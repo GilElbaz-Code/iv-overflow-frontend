@@ -58,6 +58,14 @@ export const BlueButton = styled(Button)`
   background-color: #1d8ff2;
 `;
 
+export const CloseButton = styled(RedButton)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 15px;
+`;
+
 export const Form = styled.form`
   max-width: 300px;
   margin: 0 auto;
@@ -103,11 +111,4 @@ export const QuestionContainer = styled.div`
   border: 1px solid #ddd;
   padding: 15px;
   margin-bottom: 15px;
-`;
-
-export const SeparatorLine = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: #ccc;
-  margin: 16px 0; /* Adjust the margin as needed */
 `;

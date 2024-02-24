@@ -7,7 +7,7 @@ import {
   Input,
   ErrorSpan,
   BlueButton,
-} from "./shared/SharedStyles";
+} from "../styles/SharedStyles";
 import { loginUser } from "../redux/actions/authActions";
 import {
   selectLoading,
@@ -31,7 +31,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (token) {
       dispatch(fetchUserInfo(token));
-      navigate("/questions");
+      navigate("/");
     }
   }, [token, navigate, dispatch]);
 

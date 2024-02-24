@@ -1,18 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
-import QuestionsFeedPage from "./pages/QuestionFeedPage";
-import QuestionDetailsPage from "./pages/QuestionDetailsPage";
+import FeedPage from "./pages/FeedPage";
+import QuestionPage from "./pages/QuestionPage";
+
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/questions" element={<QuestionsFeedPage />} />
-        <Route
-          path="/questions/:questionId"
-          element={<QuestionDetailsPage />}
-        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<FeedPage />} />
+        <Route path="/questions/:questionId" element={<QuestionPage />} />{" "}
       </Routes>
     </Router>
   );

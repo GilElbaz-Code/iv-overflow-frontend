@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   ModalOverlay,
-  CloseButton,
   ModalContainer,
   TextArea,
   Input,
@@ -10,7 +9,7 @@ import {
 import { askQuestionApi } from "../api";
 import { selectToken } from "../redux/reducers/authReducer";
 import { selectUserInfo } from "../redux/reducers/userReducer";
-import { Button, Title } from "../componenets/shared/SharedStyles";
+import { BlueButton, Title, CloseButton } from "../styles/SharedStyles";
 
 const AskQuestionModal = ({ isOpen, onClose }) => {
   const [content, setContent] = useState("");
@@ -79,7 +78,7 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
           value={tagList}
           onChange={handleTagsChange}
         />
-        <Button onClick={handleSubmit}>Submit</Button>
+        <BlueButton onClick={handleSubmit}>Submit</BlueButton>
       </ModalContainer>
     </ModalOverlay>
   );
