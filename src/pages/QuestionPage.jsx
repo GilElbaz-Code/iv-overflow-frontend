@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchSingleQuestionApi, fetchAnswersApi } from "../api"; // Update the import path
+import { fetchSingleQuestionApi, fetchAnswersApi } from "../api";
 import { useSelector } from "react-redux";
 import { selectToken } from "../redux/reducers/authReducer";
 import { selectUserInfo } from "../redux/reducers/userReducer";
-import { Label, Title } from "../styles/SharedStyles";
+import { BlueButton, Label, Title } from "../styles/SharedStyles";
 import { TagContainer, Tag } from "../styles/CardContainerStyles";
+import AnswerCard from "../componenets/AnswerCard";
+import { TextArea } from "../modals/AskQuestionModalStyle";
 
 const QuestionPage = () => {
+  // TODO: Add Header like from feed page + design + buttons functions (including voting)
   const { questionId } = useParams();
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
@@ -51,15 +54,17 @@ const QuestionPage = () => {
         ))}
       </TagContainer>
 
-      <h2>Answers:</h2>
+      <Title>Answers</Title>
       <ul>
         {answers.map((answer) => (
-          <li key={answer.id}>
-            <p>{answer.content}</p>
-            {/* Render other details of the answer if needed */}
+          <li key={answer.answer_id}>
+            <AnswerCard answer={answer}></AnswerCard>
           </li>
         ))}
       </ul>
+
+      <TextArea placeholder="Type answer here"></TextArea>
+      <BlueButton>Answer</BlueButton>
     </div>
   );
 };
