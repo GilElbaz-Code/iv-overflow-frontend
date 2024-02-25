@@ -2,6 +2,7 @@
   "name": "iv-overflow-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/login",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -22,7 +23,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start --start-url=/login",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

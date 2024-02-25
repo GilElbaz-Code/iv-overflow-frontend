@@ -101,3 +101,17 @@ export const fetchAnswersApi = async (token, questionId) => {
     handleApiError(error);
   }
 };
+
+export const answerQuestionApi = async (answerData, token) => {
+  try {
+    const response = await axios.post(`${API_URL}/answers`, answerData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};

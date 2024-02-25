@@ -31,7 +31,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (token) {
       dispatch(fetchUserInfo(token));
-      navigate("/");
+      navigate("/feed");
     }
   }, [token, navigate, dispatch]);
 

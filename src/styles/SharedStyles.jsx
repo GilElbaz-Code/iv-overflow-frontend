@@ -9,6 +9,16 @@ export const Title = styled.h1`
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 `;
 
+export const SecondaryTitle = styled.h2`
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #333; /* Add a solid line under the title */
+`;
+
 export const StyledImg = styled.img`
   width: 100%;
   max-width: 200px;
@@ -94,21 +104,10 @@ export const ErrorSpan = styled.span`
   margin-top: 4px;
 `;
 
-export const HeaderContainer = styled.div`
-  background-color: #333;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  width: 100%;
-  position: fixed;
-  top: 0;
-`;
-
-export const QuestionContainer = styled.div`
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 15px;
+export const Paragraph = styled.p`
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 16px;
 `;

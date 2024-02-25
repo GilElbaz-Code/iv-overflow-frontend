@@ -4,13 +4,12 @@ import { fetchSingleQuestionApi, fetchAnswersApi } from "../api";
 import { useSelector } from "react-redux";
 import { selectToken } from "../redux/reducers/authReducer";
 import { selectUserInfo } from "../redux/reducers/userReducer";
-import { BlueButton, Label, Title } from "../styles/SharedStyles";
+import { Paragraph, SecondaryTitle, Title } from "../styles/SharedStyles";
 import { TagContainer, Tag } from "../styles/CardContainerStyles";
 import AnswerCard from "../components/AnswerCard";
-import { TextArea } from "../modals/AskQuestionModalStyle";
+import AnswerInput from "../components/AnswerInput";
 
 const QuestionPage = () => {
-  // TODO: Add Header like from feed page + design + buttons functions (including voting)
   const { questionId } = useParams();
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
@@ -36,35 +35,32 @@ const QuestionPage = () => {
     fetchQuestionAndAnswers();
   }, [questionId, token]);
 
+  const addAnswer = (newAnswer) => {
+    setAnswers((prevAnswers) => [...prevAnswers, newAnswer]);
+  };
+
   if (!question || answers.length === 0) {
-    // You can render a loading state or handle the case where the data hasn't been fetched yet
     return <div>Loading...</div>;
   }
 
   return (
     <div>
       <Title>{question.title}</Title>
-      <Label>
+      <SecondaryTitle>
         Asked {question.date} by {userInfo}
-      </Label>
-      <p>{question.content}</p>
+      </SecondaryTitle>
+      <Paragraph>{question.content}</Paragraph>
       <TagContainer>
         {question.tags.map((tag) => (
           <Tag key={tag.id}>{tag}</Tag>
         ))}
       </TagContainer>
 
-      <Title>Answers</Title>
-      <ul>
-        {answers.map((answer) => (
-          <li key={answer.answer_id}>
-            <AnswerCard answer={answer}></AnswerCard>
-          </li>
-        ))}
-      </ul>
-
-      <TextArea placeholder="Type answer here"></TextArea>
-      <BlueButton>Answer</BlueButton>
+      <SecondaryTitle>Answers</SecondaryTitle>
+      {answers.map((answer) => (
+        <AnswerCard answer={answer} key={answer.id} />
+      ))}
+      <AnswerInput questionId={questionId} addAnswer={addAnswer} />
     </div>
   );
 };

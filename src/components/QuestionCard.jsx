@@ -13,7 +13,6 @@ import {
 import { Link } from "react-router-dom";
 
 const QuestionCard = ({ data }) => {
-  console.log(data);
   const questionDate = new Date(data.date);
   const now = new Date();
   const timeElapsed = calculateTimeElapsed(questionDate, now);
