@@ -20,12 +20,12 @@ const QuestionPage = () => {
     const fetchQuestionAndAnswers = async () => {
       try {
         const questionResponse = await fetchSingleQuestionApi(
-          token,
-          questionId
+          questionId,
+          token
         );
         setQuestion(questionResponse.question);
 
-        const answersResponse = await fetchAnswersApi(token, questionId);
+        const answersResponse = await fetchAnswersApi(questionId, token);
         setAnswers(answersResponse.answers);
       } catch (error) {
         console.error("Error fetching question and answers:", error);
@@ -36,9 +36,7 @@ const QuestionPage = () => {
   }, [questionId, token]);
 
   const addAnswer = (newAnswer) => {
-    console.log(answers);
     setAnswers((prevAnswers) => [...prevAnswers, newAnswer]);
-    console.log(answers);
   };
 
   if (!question || answers.length === 0) {

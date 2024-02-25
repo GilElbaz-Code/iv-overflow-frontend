@@ -16,7 +16,6 @@ export const SecondaryTitle = styled.h2`
   text-align: center;
   margin-bottom: 30px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid #333; /* Add a solid line under the title */
 `;
 
 export const StyledImg = styled.img`

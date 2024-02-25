@@ -52,3 +52,19 @@ export const CardContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
+
+export const VoteCount = styled.div`
+  color: #4caf50; /* Green color for votes */
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-right: 8px;
+  font-family: "Roboto", sans-serif; /* Use the desired font */
+`;
+
+export const AnswerCount = styled.div`
+  color: #2196f3; /* Blue color for answers */
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-right: 8px;
+  font-family: "Roboto", sans-serif; /* Use the same font as VoteCount or another font */
+`;

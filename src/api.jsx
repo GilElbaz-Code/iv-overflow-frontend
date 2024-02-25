@@ -43,7 +43,7 @@ export const getUserInfo = async (token) => {
   }
 };
 
-export const fetchSingleQuestionApi = async (token, questionId) => {
+export const fetchSingleQuestionApi = async (questionId, token) => {
   try {
     const response = await axios.get(`${API_URL}/questions`, {
       headers: {
@@ -85,7 +85,7 @@ export const askQuestionApi = async (questionData, token) => {
   }
 };
 
-export const fetchAnswersApi = async (token, questionId) => {
+export const fetchAnswersApi = async (questionId, token) => {
   try {
     const response = await axios.get(`${API_URL}/answers`, {
       headers: {
@@ -108,6 +108,40 @@ export const answerQuestionApi = async (answerData, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const getAnswerTotalVotes = async (questionId, token) => {
+  try {
+    const response = await axios.get(`${API_URL}/votes`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        questionId: questionId,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const voteAnswerApi = async (answerId, voteType, token) => {
+  try {
+    console.log("token", token);
+    const response = await axios.post(
+      `${API_URL}/votes`,
+      { answerId, voteType },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     console.log(response);
     return response.data;
   } catch (error) {

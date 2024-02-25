@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { voteAnswerApi } from "../api";
+import { useSelector } from "react-redux";
+import { selectToken } from "../redux/reducers/authReducer";
 import styled from "styled-components";
 
 const BoxContainer = styled.div`
@@ -87,22 +90,44 @@ const DownArrow = styled(ArrowIcon)`
 `;
 
 const AnswerCard = ({ answer }) => {
-  const handleVote = (voteType) => {
-    // Implement your logic for handling upvote/downvote
-    console.log(`${voteType} voted for answer with id ${answer.id}`);
+  const [userVote, setUserVote] = useState(null);
+  const token = useSelector(selectToken);
+  const answerId = answer.answer_id;
+
+  const handleVote = async (voteType) => {
+    try {
+      // Check if the user has already voted in the opposite direction
+      if (userVote === voteType) {
+        // If the user clicks the same vote button again, remove their vote
+        await voteAnswerApi(answerId, null, token);
+        setUserVote(null);
+      } else {
+        // Otherwise, update the user's vote
+        await voteAnswerApi(answerId, voteType, token);
+        setUserVote(voteType);
+      }
+    } catch (error) {
+      console.error("Error voting:", error);
+    }
   };
 
   return (
     <BoxContainer>
       <VoteButtons>
         <Circle>
-          <VoteButton onClick={() => handleVote("up")}>
+          <VoteButton
+            onClick={() => handleVote("up")}
+            disabled={userVote === "up"}
+          >
             <UpArrow />
           </VoteButton>
         </Circle>
         <AnswerVotes>{answer.votes}</AnswerVotes>
         <Circle>
-          <VoteButton onClick={() => handleVote("down")}>
+          <VoteButton
+            onClick={() => handleVote("down")}
+            disabled={userVote === "down"}
+          >
             <DownArrow />
           </VoteButton>
         </Circle>
