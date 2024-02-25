@@ -40,7 +40,6 @@ const AnswerInput = ({ questionId, addAnswer }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Assuming answerQuestionApi returns the newly created answer
       const newAnswer = await answerQuestionApi(
         {
           questionId: questionId,
@@ -50,9 +49,9 @@ const AnswerInput = ({ questionId, addAnswer }) => {
         token
       );
 
-      addAnswer(newAnswer.answer);
-
       setAnswer("");
+
+      addAnswer(newAnswer.answer);
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +64,9 @@ const AnswerInput = ({ questionId, addAnswer }) => {
         value={answer}
         onChange={handleInputChange}
       />
-      <SubmitButton type="submit">Answer</SubmitButton>
+      <SubmitButton type="submit" onSubmit={handleSubmit}>
+        Answer
+      </SubmitButton>
     </AnswerForm>
   );
 };

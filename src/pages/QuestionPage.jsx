@@ -36,7 +36,9 @@ const QuestionPage = () => {
   }, [questionId, token]);
 
   const addAnswer = (newAnswer) => {
+    console.log(answers);
     setAnswers((prevAnswers) => [...prevAnswers, newAnswer]);
+    console.log(answers);
   };
 
   if (!question || answers.length === 0) {
@@ -58,7 +60,7 @@ const QuestionPage = () => {
 
       <SecondaryTitle>Answers</SecondaryTitle>
       {answers.map((answer) => (
-        <AnswerCard answer={answer} key={answer.id} />
+        <AnswerCard answer={answer} />
       ))}
       <AnswerInput questionId={questionId} addAnswer={addAnswer} />
     </div>

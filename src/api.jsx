@@ -95,7 +95,6 @@ export const fetchAnswersApi = async (token, questionId) => {
         questionId: `${questionId}`,
       },
     });
-    console.log(response);
     return response.data;
   } catch (error) {
     handleApiError(error);
