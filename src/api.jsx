@@ -132,7 +132,6 @@ export const getAnswerTotalVotes = async (questionId, token) => {
 
 export const voteAnswerApi = async (answerId, voteType, token) => {
   try {
-    console.log("token", token);
     const response = await axios.post(
       `${API_URL}/votes`,
       { answerId, voteType },
@@ -142,7 +141,6 @@ export const voteAnswerApi = async (answerId, voteType, token) => {
         },
       }
     );
-    console.log(response);
     return response.data;
   } catch (error) {
     handleApiError(error);

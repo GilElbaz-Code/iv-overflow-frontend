@@ -8,6 +8,7 @@ import { Paragraph, SecondaryTitle, Title } from "../styles/SharedStyles";
 import { TagContainer, Tag } from "../styles/CardContainerStyles";
 import AnswerCard from "../components/AnswerCard";
 import AnswerInput from "../components/AnswerInput";
+import ConstantHeader from "../components/ConstantHeader";
 
 const QuestionPage = () => {
   const { questionId } = useParams();
@@ -39,12 +40,13 @@ const QuestionPage = () => {
     setAnswers((prevAnswers) => [...prevAnswers, newAnswer]);
   };
 
-  if (!question || answers.length === 0) {
-    return <div>Loading...</div>;
+  if (!question) {
+    return <div>Loading..</div>;
   }
 
   return (
     <div>
+      <ConstantHeader></ConstantHeader>
       <Title>{question.title}</Title>
       <SecondaryTitle>
         Asked {question.date} by {userInfo}

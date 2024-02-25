@@ -35,12 +35,10 @@ const QuestionCard = ({ data }) => {
         setTotalVotes(votes);
         setAnswerCount(answersData.answers.length);
       } catch (error) {
-        // Handle error if needed
         console.error("Error fetching data:", error);
       }
     };
 
-    // Call the async function inside useEffect
     fetchData();
   }, [questionId, token]);
 

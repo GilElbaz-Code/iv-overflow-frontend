@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authReducer from "./redux/reducers/authReducer";
 import userReducer from "./redux/reducers/userReducer";
+import userVoteReducer from "./redux/reducers/userVoteReducer";
 
 const persistConfig = {
   key: "root",
@@ -14,6 +15,7 @@ const persistedReducer = persistReducer(
   combineReducers({
     auth: authReducer,
     user: userReducer,
+    userVote: userVoteReducer,
   })
 );
 

@@ -53,18 +53,21 @@ export const CardContainer = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
-export const VoteCount = styled.div`
-  color: #4caf50; /* Green color for votes */
+const sharedStyles = `
   font-size: 1.2em;
   font-weight: bold;
   margin-right: 8px;
-  font-family: "Roboto", sans-serif; /* Use the desired font */
+  font-family: "Roboto", sans-serif;
 `;
 
+// VoteCount component with specific green color
+export const VoteCount = styled.div`
+  color: #4caf50; /* Green color for votes */
+  ${sharedStyles};
+`;
+
+// AnswerCount component with specific blue color
 export const AnswerCount = styled.div`
   color: #2196f3; /* Blue color for answers */
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-right: 8px;
-  font-family: "Roboto", sans-serif; /* Use the same font as VoteCount or another font */
+  ${sharedStyles};
 `;
