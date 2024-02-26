@@ -1,3 +1,12 @@
+/**
+ * QuestionPage Component
+ *
+ * A component representing the page for a single question, including its details,
+ * answers, and the ability to submit new answers.
+ *
+ * @component
+ * @returns {JSX.Element} - Rendered React component.
+ */
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchSingleQuestionApi, fetchAnswersApi } from "../api";
@@ -11,12 +20,18 @@ import AnswerInput from "../components/AnswerInput";
 import ConstantHeader from "../components/ConstantHeader";
 
 const QuestionPage = () => {
+  // Get the questionId from the URL parameters
   const { questionId } = useParams();
+
+  // State variables for storing question details and answers
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
+
+  // Redux hooks
   const token = useSelector(selectToken);
   const userInfo = useSelector(selectUserInfo);
 
+  // Fetch question details and answers on component mount
   useEffect(() => {
     const fetchQuestionAndAnswers = async () => {
       try {
@@ -36,14 +51,17 @@ const QuestionPage = () => {
     fetchQuestionAndAnswers();
   }, [questionId, token]);
 
+  // Function to add a new answer to the answers state
   const addAnswer = (newAnswer) => {
     setAnswers((prevAnswers) => [...prevAnswers, newAnswer]);
   };
 
+  // Display a loading message if the question details are still being fetched
   if (!question) {
     return <div>Loading..</div>;
   }
 
+  // Component rendering
   return (
     <div>
       <ConstantHeader></ConstantHeader>
@@ -60,7 +78,7 @@ const QuestionPage = () => {
 
       <SecondaryTitle>Answers</SecondaryTitle>
       {answers.map((answer) => (
-        <AnswerCard answer={answer} />
+        <AnswerCard key={answer.answer_id} answer={answer} />
       ))}
       <AnswerInput questionId={questionId} addAnswer={addAnswer} />
     </div>

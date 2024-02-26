@@ -1,3 +1,12 @@
+/**
+ * QuestionCard Component
+ *
+ * A component to display a question card with relevant information.
+ *
+ * @component
+ * @param {Object} data - The question data including title, content, date, etc.
+ * @returns {JSX.Element} - Rendered React component.
+ */
 import React, { useState, useEffect } from "react";
 import { calculateTimeElapsed } from "../utils/helpers";
 import {
@@ -18,15 +27,23 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../redux/reducers/authReducer";
 
 const QuestionCard = ({ data }) => {
+  // State variables for total votes and answer count
   const [totalVotes, setTotalVotes] = useState(0);
   const [answerCount, setAnswerCount] = useState(0);
+
+  // Date calculations for time elapsed since the question was asked
   const questionDate = new Date(data.date);
   const now = new Date();
   const timeElapsed = calculateTimeElapsed(questionDate, now);
+
+  // Extracted properties from the question data
   const questionId = data.question_id;
   const fullName = data.full_name;
+
+  // Redux hooks
   const token = useSelector(selectToken);
 
+  // Fetch total votes and answer count on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,6 +59,7 @@ const QuestionCard = ({ data }) => {
     fetchData();
   }, [questionId, token]);
 
+  // Component rendering
   return (
     <CardContainer>
       <Link to={`/questions/${questionId}`}>

@@ -1,3 +1,12 @@
+/**
+ * ConstantHeader Component
+ *
+ * A component representing the constant header of the application.
+ * It includes a logo, search bar, "Ask New Question" button, and a "Logout" button.
+ *
+ * @component
+ * @returns {JSX.Element} - Rendered React component.
+ */
 import { React, useState } from "react";
 import {
   FeedHeaderContainer,
@@ -12,10 +21,14 @@ import { logout } from "../redux/reducers/authReducer";
 import { useNavigate } from "react-router-dom";
 
 const ConstantHeader = () => {
+  // State variables
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Hooks
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // Event handlers
   const closeModal = () => setIsModalOpen(false);
   const openModal = () => setIsModalOpen(true);
 
@@ -24,6 +37,7 @@ const ConstantHeader = () => {
     navigate("/login");
   };
 
+  // Component rendering
   return (
     <FeedHeaderContainer>
       <Logo src={logo} alt="Logo" />

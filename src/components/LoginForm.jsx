@@ -1,6 +1,16 @@
+/**
+ * LoginForm Component
+ *
+ * A component for user login, including email and password input fields.
+ * Handles form submission, validation, and displays error messages.
+ *
+ * @component
+ * @returns {JSX.Element} - Rendered React component.
+ */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import {
   Form,
   Label,
@@ -16,18 +26,25 @@ import {
 } from "../redux/reducers/authReducer";
 import { fetchUserInfo } from "../redux/actions/userActions";
 
+const StyledErrorSpan = styled(ErrorSpan)`
+  font-family: "Roboto", sans-serif;
+`;
+
 const LoginForm = () => {
+  // Redux hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
   const token = useSelector(selectToken);
 
+  // State variables for form fields and errors
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  // Effect to check if the user is already logged in
   useEffect(() => {
     if (token) {
       dispatch(fetchUserInfo(token));
@@ -35,6 +52,7 @@ const LoginForm = () => {
     }
   }, [token, navigate, dispatch]);
 
+  // Function to validate form fields
   const validateFields = () => {
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
@@ -42,6 +60,7 @@ const LoginForm = () => {
     return isEmailValid && isPasswordValid;
   };
 
+  // Function to validate email
   const validateEmail = (value) => {
     if (!value.includes("@")) {
       setEmailError("Invalid email address");
@@ -52,6 +71,7 @@ const LoginForm = () => {
     }
   };
 
+  // Function to validate password
   const validatePassword = (value) => {
     if (value.length < 6) {
       setPasswordError("Password must be at least 6 characters");
@@ -62,6 +82,7 @@ const LoginForm = () => {
     }
   };
 
+  // Event handler for form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -76,6 +97,7 @@ const LoginForm = () => {
     }
   };
 
+  // Component rendering
   return (
     <Form onSubmit={handleFormSubmit}>
       <Label>
@@ -86,7 +108,7 @@ const LoginForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           disabled={loading}
         />
-        {emailError && <ErrorSpan>{emailError}</ErrorSpan>}
+        {emailError && <StyledErrorSpan>{emailError}</StyledErrorSpan>}
       </Label>
       <Label>
         Password
@@ -96,12 +118,12 @@ const LoginForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           disabled={loading}
         />
-        {passwordError && <ErrorSpan>{passwordError}</ErrorSpan>}
+        {passwordError && <StyledErrorSpan>{passwordError}</StyledErrorSpan>}
       </Label>
       <BlueButton type="submit" disabled={loading}>
         {loading ? "Logging in..." : "Login"}
       </BlueButton>
-      {error && <p style={{ color: "red" }}>{error.data.error}</p>}
+      {error && <StyledErrorSpan>{error.data.error}</StyledErrorSpan>}
     </Form>
   );
 };

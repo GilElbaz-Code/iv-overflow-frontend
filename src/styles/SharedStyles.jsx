@@ -18,12 +18,6 @@ export const SecondaryTitle = styled.h2`
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 `;
 
-export const StyledImg = styled.img`
-  width: 100%;
-  max-width: 200px;
-  margin: 0 auto;
-`;
-
 export const Logo = styled.img`
   width: 150px;
 `;
@@ -99,8 +93,8 @@ export const Input = styled.input`
 
 export const ErrorSpan = styled.span`
   color: red;
-  font-size: 0.875rem;
-  margin-top: 4px;
+  font-size: 14px;
+  margin-top: 5px;
 `;
 
 export const Paragraph = styled.p`

@@ -1,3 +1,13 @@
+/**
+ * AskQuestionModal Component
+ *
+ * A modal component for asking a new question.
+ *
+ * @component
+ * @param {boolean} isOpen - Indicates whether the modal is open or closed.
+ * @param {function} onClose - Function to close the modal.
+ * @returns {JSX.Element} - Rendered React component.
+ */
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -5,19 +15,23 @@ import {
   ModalContainer,
   TextArea,
   Input,
-} from "./AskQuestionModalStyle";
+} from "../styles/AskQuestionModalStyle";
 import { askQuestionApi } from "../api";
 import { selectToken } from "../redux/reducers/authReducer";
 import { selectUserInfo } from "../redux/reducers/userReducer";
 import { BlueButton, Title, CloseButton } from "../styles/SharedStyles";
 
 const AskQuestionModal = ({ isOpen, onClose }) => {
+  // State variables for form fields
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [tagList, setTagList] = useState("");
+
+  // Redux hooks
   const token = useSelector(selectToken);
   const fullName = useSelector(selectUserInfo);
 
+  // Event handlers for form fields
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -30,13 +44,16 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
     setTagList(e.target.value);
   };
 
+  // Event handler for form submission
   const handleSubmit = async () => {
     try {
+      // Extract tags from the comma-separated list
       const tags = tagList
         .split(",")
         .map((tag) => tag.trim())
         .filter((tag) => tag !== "");
 
+      // Call the API to submit the question
       await askQuestionApi(
         {
           content,
@@ -47,12 +64,14 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
         token
       );
 
+      // Close the modal after successful submission
       onClose();
     } catch (error) {
       console.error("Error submitting question:", error);
     }
   };
 
+  // Component rendering
   return (
     <ModalOverlay isOpen={isOpen} onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
