@@ -24,7 +24,7 @@ const handleApiError = (error) => {
 export const loginUserApi = async (credentials) => {
   try {
     const response = await axios.post(`${API_URL}/login`, credentials);
-    return response.data;
+    return response;
   } catch (error) {
     handleApiError(error);
   }

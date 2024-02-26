@@ -49,7 +49,6 @@ const AskQuestionModal = ({ isOpen, onClose }) => {
 
       onClose();
     } catch (error) {
-      // Handle errors
       console.error("Error submitting question:", error);
     }
   };

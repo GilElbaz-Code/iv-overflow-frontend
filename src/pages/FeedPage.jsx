@@ -5,7 +5,7 @@ import { fetchQuestionsApi } from "../api";
 import QuestionsList from "../components/QuestionsList";
 import ConstantHeader from "../components/ConstantHeader";
 
-const QuestionFeedPage = () => {
+const FeedPage = () => {
   const [questions, setQuestions] = useState([]);
   const token = useSelector(selectToken);
 
@@ -31,4 +31,4 @@ const QuestionFeedPage = () => {
   );
 };
 
-export default QuestionFeedPage;
+export default FeedPage;

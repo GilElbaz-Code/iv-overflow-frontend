@@ -26,7 +26,6 @@ const AnswerCard = ({ answer }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Initialize localUserVote from persisted state when the component mounts
     if (localUserVote === null) {
       const storedUserVote = localStorage.getItem(
         `userVote_${answer.answer_id}`
@@ -55,8 +54,6 @@ const AnswerCard = ({ answer }) => {
   };
 
   useEffect(() => {
-    // Update UI or handle side-effects based on localUserVote changes
-    // For example, you might want to update Redux state here if needed
     dispatch(setUserVote(localUserVote));
   }, [localUserVote, dispatch]);
 
