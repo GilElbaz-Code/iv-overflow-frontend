@@ -49,7 +49,7 @@ Make sure you have the following installed on your machine:
 Clone the repository and install dependencies.
 
 ```bash
-git clone https://github.com/your-username/iv-overflow.git
+git clone https://github.com/GilElbaz-Code/iv-overflow.git
 cd iv-overflow
 npm install
 # or
